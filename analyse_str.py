@@ -1,3 +1,6 @@
+#This module can be used to analyse and get rid of odd spaces of some string either in a webcrawler program or other programs if needed.
+
+#Deal with every sign of "\n", "\t" or "\v" in target string with recursive method.
 def trunc_str(string_src):
     for i in range(len(string_src)):
         if string_src[i] == "\n" or string_src[i] == "\t" or string_src[i] == "\v":
@@ -11,7 +14,7 @@ def trunc_str(string_src):
             else:
                 return trunc_str(string_src[:i]);
 
-
+#Deal with space signs. The largest continuous spaces this function may handle is 7.
 def trunc_str2(string_src):
     for i in range(len(string_src)):
         if string_src[i] == " " and i + 3 <= len(string_src) and (string_src[i: i + 3] == "   " or i + 4 <= len(string_src) and (string_src[i: i + 4] == "    " or i + 5 <= len(string_src) and (string_src[i: i + 5] == "     " or i + 6 <= len(string_src) and (string_src[i: i + 6] == "      " or i + 7 <= len(string_src) and string_src[i: i + 7] == "       ")))):
@@ -46,6 +49,7 @@ def trunc_str2(string_src):
                 else:
                     return trunc_str2(string_src[:i]);
 
+#Deal with odd spaces in front or end of the target string.                
 def cut_str(string_src):
     head = 0;
     tail = 0;
@@ -79,12 +83,14 @@ def cut_str(string_src):
         string_dest = string_src[head:-tail];
     return string_dest;
 
+#Combine each of functions above to get final string.
 def get_str(string_src):
     string_tmp = trunc_str(string_src);
     string_tmp = trunc_str2(string_tmp);
     string_dest = cut_str(string_tmp);
     return string_dest;
 
+#Program entrance(just for some tests)
 if __name__ == "__main__":
     print("test different method to get string.");
         #while (string = input("enter a string(quit to stop test): ")) != "quit":  #SyntaxError: invalid syntax
